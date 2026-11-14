@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * RESPONSABILIDAD: ORQUESTADOR PRINCIPAL (Pipeline de inicialización y bucle)
- * ROL DUEÑO:       Lead Developer / Arquitecto Frontend
+ * ROL DUEÑO:       Líder del proyecto
  * ============================================================================
  * 
  * ORDEN DE EJECUCIÓN DEL PIPELINE:
@@ -47,9 +47,9 @@ async function bootstrap() {
     },
     onToggleFullscreen: () => {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        document.documentElement.requestFullscreen().catch(() => { });
       } else {
-        document.exitFullscreen().catch(() => {});
+        document.exitFullscreen().catch(() => { });
       }
     }
   });
@@ -70,6 +70,8 @@ async function bootstrap() {
 
       if (poseResult && poseResult.landmarks) {
         // Suavizar landmarks
+        // TODO (DETECCIÓN): suavizar también worldLandmarks (Kalidokit calcula
+        // los giros con esos puntos 3D, no con los 2D)
         const smoothedLandmarks = smoothLandmarks(poseResult.landmarks);
 
         // Resolver cinemática de huesos con Kalidokit
