@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Estilos mínimos del esqueleto: Reset básico y contenedores a pantalla completa
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+/* Video de cámara oculto para captura en memoria */
+#webcam {
+  display: none;
+}
+
+/* Contenedor del canvas 3D a pantalla completa */
+#canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Contenedor de la interfaz de usuario a pantalla completa */
+#ui-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
