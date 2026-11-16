@@ -1,3 +1,6 @@
+
+
+
 # Dependencias y herramientas locales (si se usan a futuro)
 node_modules/
 package-lock.json
@@ -13,3 +16,6 @@ Thumbs.db
 # Distribución y temporales
 dist/
 tmp/
+---
+*.mp4
+*.mov
