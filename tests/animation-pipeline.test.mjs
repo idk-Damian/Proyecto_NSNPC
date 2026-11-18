@@ -11,7 +11,10 @@ test('loss of person clears retained rotations without changing camera startup',
   await loadModule('../deja-de-ser-npc/src/main.js', {
     './camera.js': { startCamera: async value => { assert.equal(value, video); events.push('camera'); } },
     './pose.js': { createPoseDetector: async () => ({ detect: () => frames.shift() }) },
-    './smoothing.js': { smoothLandmarks: points => points },
+    './smoothing.js': {
+      smoothLandmarks: points => points,
+      createLandmarkSmoother: () => points => points
+    },
     './solver.js': { solvePose: (value, source) => { assert.equal(source, video); events.push(value); return value; } },
     './scene.js': { initScene() {}, loadAvatar() {}, startRenderLoop() {}, applyRig() {} },
     './avatars.js': { AVATARS: [] }, './ui.js': { initUI() {} }
