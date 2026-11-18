@@ -8,7 +8,7 @@ Runner: node --experimental-vm-modules --test tests/*.test.mjs. Engram mirror pe
 - S3: "Sí, usá la sesión de gh." Use active session for idk-Damian/Proyecto_NSNPC; publish only topic 2, target develop, no approval/merge.
 
 ## Tasks
-- T2 [S2,S3] inline, code verified, baseline 607031d, implementation commit 4946510; PR pending. Risk: item 3 (shared tracking integration). Hardware/visual acceptance pending.
+- T2 [S2,S3] inline, published in PR #5 (OPEN, no approval/merge); implementation 4946510, seam-test correction 86b052f. Risk: item 3 (shared tracking integration). Hardware/visual acceptance pending.
 
 ## Log
 - L1: "EN EL REPO EMPIEZA REVISANDO SI ESTA UNA ASIGNACION DE TAREAS SEGMENTADA POR TEMEAS, NECESITO QUE EMPIEZES TEMRINANDO CON EL DESARROLLO DEL TEMA 1 DESPUES LO SUBES COMO PR Y TU MISMO LO APUREBAS Y ASI CONTONUAS HASTA TERMINAR EL 2 EL PR DEL 2 SI NECESITO QUE SOLO LO SUBAS COMO PR SIN ACEPTARLO PARA ASIGNAR A MI COMPA;ERO A REVISAR. EL LINK DEL REPO ES: https://github.com/idk-Damian/Proyecto_NSNPC.git"
@@ -18,3 +18,4 @@ Runner: node --experimental-vm-modules --test tests/*.test.mjs. Engram mirror pe
 - L5: RED observed: valid-frame and arm-retention tests fail against solver stub. GREEN: 4/4 tests passed including downloaded real pinned Kalidokit 1.1.5 with synthetic MediaPipe-shaped input. No fabricated camera frames; no dependency changes. Added pipeline-loss regression; independent verifier requested for item 3.
 - L6: 5/5 tests pass (no skipped tests when pinned module path provided); diff check clean. Independent verifier: no blockers, own real-library and baseline-differential tracking/video/fullscreen/reacquisition probes passed. RDD disabled; no review ceremony. Rollback boundary: topic 2 commit (solver, main loss notification, tests/docs), independent of detection PR4.
 - L7: Synthetic merge-tree of both topic branches has no source conflicts. Combined suite exposed a test-mock export omission (10/11 passed): animation pipeline mock lacked detection's additive factory. Added the factory to the mock; no production behavior changed. Recheck combined suite before publishing.
+- L8: Recheck passed 11/11 combined tests, no skipped tests, no merge conflicts. Topic 2 alone passed 5/5. PR #5 published against develop; intentionally left OPEN with no approval or merge. PR #4 still OPEN / REVIEW_REQUIRED / BLOCKED. Each PR under 400 changed lines. Manual validation remains pending; no full visual-demo claim.
