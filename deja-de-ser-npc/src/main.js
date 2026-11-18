@@ -91,6 +91,8 @@ async function bootstrap() {
         smoothWorld(null);
         // Si no hay persona en cámara, el muñeco se queda quieto
         applyRig(null);
+        // Reiniciar la retención de brazos para no reutilizar otra persona.
+        solvePose(null, videoElement);
       }
     }
 
