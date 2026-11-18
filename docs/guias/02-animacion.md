@@ -1,5 +1,28 @@
 # Guía: ANIMACIÓN
 
+## Estado de la implementación
+
+`solvePose` valida ambos arreglos de 33 puntos y llama a Kalidokit 1.1.5 con
+`runtime: 'mediapipe'`, puntos métricos primero y `enableLegs: false`.
+Conserva el último brazo fiable si su visibilidad baja de 0.5 en cualquiera
+de los dos espacios. Sin historial usa reposo; sin persona o con datos inválidos
+devuelve `null` y borra el historial. `main.js` notifica la pérdida de persona.
+Entradas y valores retenidos no se comparten con el consumidor.
+
+Se conserva la convención espejo nativa de Kalidokit: los índices MediaPipe
+11/13/15 controlan `Right*`, y 12/14/16 controlan `Left*`. No se añade otro
+intercambio ni inversión de signos o escala. La conversión específica de VRM
+0.x/1.x deberá comprobarse con Escena 3D antes de cambiar esta convención.
+Referencia: [fuente oficial](https://github.com/yeemachine/kalidokit).
+
+Pruebas sin dependencias: `node --experimental-vm-modules --test tests/*.test.mjs`.
+Para la prueba real de biblioteca, descargar el mismo módulo CDN 1.1.5 del
+importmap fuera del repositorio y definir `KALIDOKIT_MODULE` con su ruta absoluta
+antes del comando. Sin esa variable la prueba se marca omitida explícitamente.
+Los datos de prueba son sintéticos, no capturas reales: quedan pendientes el JSON
+de webcam, la validación visual de lateralidad y el ensayo en el equipo final.
+Los temas de escena y avatares no se implementan aquí.
+
 **Quiénes:** 2 personas
 **Tu archivo:** `src/solver.js`
 **Tu trabajo en una frase:** convertir los puntos del cuerpo en giros de huesos que el muñeco pueda copiar.
