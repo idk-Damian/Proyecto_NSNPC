@@ -18,7 +18,7 @@
 
 import { startCamera } from './camera.js';
 import { createPoseDetector } from './pose.js';
-import { smoothLandmarks } from './smoothing.js';
+import { createLandmarkSmoother } from './smoothing.js';
 import { solvePose } from './solver.js';
 import { initScene, loadAvatar, applyRig, startRenderLoop } from './scene.js';
 import { AVATARS } from './avatars.js';
@@ -59,6 +59,8 @@ async function bootstrap() {
 
   // 6. Iniciar detector de posturas
   const poseDetector = await createPoseDetector();
+  const smoothImage = createLandmarkSmoother();
+  const smoothWorld = createLandmarkSmoother();
 
   // 7. Bucle continuo de animación y detección
   function trackingLoop() {
@@ -69,16 +71,15 @@ async function bootstrap() {
       const poseResult = poseDetector.detect(videoElement, timestampMs);
 
       if (poseResult && poseResult.landmarks) {
-        // Suavizar landmarks
-        // TODO (DETECCIÓN): suavizar también worldLandmarks (Kalidokit calcula
-        // los giros con esos puntos 3D, no con los 2D)
-        const smoothedLandmarks = smoothLandmarks(poseResult.landmarks);
+        // No mezclar coordenadas normalizadas con coordenadas métricas.
+        const smoothedLandmarks = smoothImage(poseResult.landmarks, timestampMs);
+        const smoothedWorld = smoothWorld(poseResult.worldLandmarks, timestampMs);
 
         // Resolver cinemática de huesos con Kalidokit
         const rig = solvePose(
           {
             landmarks: smoothedLandmarks,
-            worldLandmarks: poseResult.worldLandmarks
+            worldLandmarks: smoothedWorld
           },
           videoElement
         );
@@ -86,6 +87,8 @@ async function bootstrap() {
         // Mover el muñeco 3D
         applyRig(rig);
       } else {
+        smoothImage(null);
+        smoothWorld(null);
         // Si no hay persona en cámara, el muñeco se queda quieto
         applyRig(null);
       }

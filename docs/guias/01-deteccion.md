@@ -1,5 +1,22 @@
 # Guía: DETECCIÓN
 
+## Estado de la implementación
+
+El filtro One Euro está implementado. `createLandmarkSmoother({ minCutoff, beta,
+dCutoff })` crea un flujo independiente; recibe puntos y un timestamp opcional
+en milisegundos. `smoothLandmarks(landmarks)` conserva el contrato original.
+`main.js` usa instancias separadas para puntos normalizados y métricos y las
+reinicia al perder la persona. No modifica los puntos de MediaPipe ni su visibilidad.
+
+Pruebas desde la raíz (Node 24, sin instalar dependencias):
+`node --experimental-vm-modules --test tests/*.test.mjs`.
+El algoritmo sigue la [referencia original](https://gery.casiez.net/1euro/).
+Los valores iniciales son `minCutoff=1`, `beta=0.05`, `dCutoff=1`;
+deben calibrarse en el equipo de entrega. Pendiente: grabar 2–3 fotogramas
+reales con consentimiento y validar webcam, vibración y rendimiento en ese equipo.
+Las pruebas sintéticas no sustituyen esa validación; los temas de escena/avatar
+siguen fuera de este cambio.
+
 **Quiénes:** 2 personas (cupo 1: el líder; cupo 2: por votación)
 **Tus archivos:** `src/camera.js`, `src/pose.js`, `src/smoothing.js`
 **Tu trabajo en una frase:** que la cámara "vea" a la persona y entregue sus 33 puntos del cuerpo, sin temblores, a los demás.
